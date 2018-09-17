@@ -62,6 +62,6 @@ app.get('/movie/:id', function(req, res) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('App is listening on port 3000');
+app.listen(5000, function () {
+  console.log('App is listening on port 5000');
 });
