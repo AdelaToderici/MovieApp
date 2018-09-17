@@ -1,5 +1,5 @@
 const Constants = {
-  BASE_URL: "http://localhost:3000/",
+  BASE_URL: "https://movie-service-api.herokuapp.com/",
   IMAGE_URL: "http://image.tmdb.org/t/p/",
   SMALL_IMAGE_SIZE: "w92",
   LARGE_IMAGE_SIZE: "w185"
