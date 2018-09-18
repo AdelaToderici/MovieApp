@@ -3,7 +3,10 @@ import {
   StyleSheet,
   StatusBar,
   Image,
+  Button,
+  ScrollView,
   Text,
+  Dimensions,
   View,
   ActivityIndicator
 } from 'react-native';
@@ -18,9 +21,15 @@ export default class MovieDetailsController extends Component {
       movie: null,
       loading: true
     };
+    
+    this.onPress = this.onPress.bind(this);
   }
   
   componentWillMount() {
+    this.fetchData();
+  }
+    
+  onPress() {
     this.fetchData();
   }
   
@@ -48,6 +57,9 @@ export default class MovieDetailsController extends Component {
           <Text style = { styles.errorText }>
               { this.state.errorMessage }
           </Text>
+          <View style={styles.buttonContainer}>
+            <Button onPress={this.onPress} title="Reload" color="#2E9298" accessibilityLabel="Tap on Me"/>
+          </View>
         </View>
       );
     } else if(this.state.loading){
@@ -61,22 +73,27 @@ export default class MovieDetailsController extends Component {
     }  
     return (
       <View style = { styles.container }>
-        <Image 
-          source = {{ uri: Constants.IMAGE_URL + Constants.LARGE_IMAGE_SIZE + this.state.movie.image }}
-          style = { styles.image }
-          resizeMode = "contain"
-        />
-        <View style = { styles.viewText }>
-          <Text style = { styles.title }>
-            { this.state.movie.title }
-          </Text>
-          <Text style = { styles.releaseDate }>
-            { this.state.movie.releaseDate }
-          </Text>
-          <Text style = { styles.description }>
-            { this.state.movie.description }
-          </Text>
-        </View>
+        <ScrollView style = { styles.scrollView }>
+          <Image 
+            source = {{ 
+              uri: Constants.IMAGE_URL + Constants.LARGE_IMAGE_SIZE + this.state.movie.image,
+              //cache: 'only-if-cached',
+            }}
+            style = { styles.image }
+            resizeMode = "contain"
+            />
+          <View style = { styles.viewText }>
+            <Text style = { styles.title }>
+              { this.state.movie.title }
+            </Text>
+            <Text style = { styles.releaseDate }>
+              { this.state.movie.releaseDate }
+            </Text>
+            <Text style = { styles.description }>
+              { this.state.movie.description }
+            </Text>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -85,13 +102,12 @@ export default class MovieDetailsController extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFF',
   }, 
   errorText: {
     paddingTop: 20,
     fontSize: 16,
     textAlign: 'center',
-    fontWeight: 'bold'
   },
   loading: {
     position: 'absolute',
@@ -102,30 +118,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  scrollView:{
+    flex: 1,
+  },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     marginLeft: 10,
+    paddingRight: 10,
     paddingTop: 10,
-    textAlign: 'center'
+    fontWeight: '600',
+    textAlign: 'left'
   },
   releaseDate: {
-    fontSize: 14,
+    fontSize: 16,
     paddingTop: 10,
     marginLeft: 10,
-    textAlign: 'center'
+    fontWeight: '400',
+    textAlign: 'left'
   },
   description: {
     lineHeight: 20,
+    fontWeight: '400',
     margin: 10,
-    textAlign: 'center'
+    textAlign: 'left'
   },
   image: {
-    flex: 2,
-    height: undefined,
-    width: undefined,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width / 1.79
   },
   viewText: {
+    //justifyContent:'flex-start',
     flex: 2,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginBottom: 2
   }
 });

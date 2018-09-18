@@ -3,6 +3,7 @@ import {
   StatusBar,
   StyleSheet,
   ActivityIndicator,
+  Button,
   FlatList,
   Text,
   View
@@ -12,6 +13,11 @@ import MovieCell from './movieCell';
 import Constants from '../constants';
 
 export default class MoviesListController extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.onPress = this.onPress.bind(this);
+  }
 
   state = {
     data: [],
@@ -20,6 +26,10 @@ export default class MoviesListController extends Component {
   };
   
   componentWillMount() {
+    this.fetchData();
+  }
+  
+  onPress() {
     this.fetchData();
   }
   
@@ -72,6 +82,9 @@ export default class MoviesListController extends Component {
           <Text style = { styles.errorText }>
               { this.state.errorMessage }
           </Text>
+          <View style={styles.buttonContainer}>
+            <Button onPress={this.onPress} title="Reload" color="#2E9298" accessibilityLabel="Tap on Me"/>
+          </View>
         </View>
       );
     }
@@ -93,12 +106,11 @@ export default class MoviesListController extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFF',
   },
   errorText: {
     paddingTop: 20,
     fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold'
+    textAlign: 'center'
   }
 });

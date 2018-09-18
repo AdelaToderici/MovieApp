@@ -51,7 +51,7 @@ app.get('/movie/:id', function(req, res) {
             id: json.id,
             title: json.title,
             releaseDate: json.release_date,
-            image: json.poster_path,
+            image: json.backdrop_path,
             description: json.overview
       };
       res.send(movie);

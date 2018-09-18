@@ -18,7 +18,7 @@ export default class MovieCell extends Component {
             style = { styles.thumbnail }
             resizeMode = "contain" />
           <View style = { styles.rowText }>
-            <Text style = { styles.title } numberOfLines = {1} ellipsizeMode = { 'tail' }>
+            <Text style = { styles.title }>
               { this.props.title }
             </Text>
             <Text style = { styles.releaseDate } numberOfLines = {1} ellipsizeMode = { 'tail' }>
@@ -48,16 +48,16 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingLeft: 0,
+    paddingRight: 10,
     paddingTop: 5,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#777'
+    fontWeight: '500',
+    flexWrap: 'wrap'
   },
   releaseDate: {
     paddingLeft: 0,
     marginTop: 5,
-    fontSize: 14,
-    color: '#777'
+    fontSize: 14
   },
   thumbnail: {
     paddingLeft: 10,
